@@ -35,8 +35,14 @@
             <h1 class="text-2xl font-bold text-gray-800 mb-1">Acceso Óptico</h1>
             <p class="text-gray-500 mb-8 text-sm">Coottyvision Optical Admin</p>
             <form id="login-form" class="space-y-4 text-left">
-                <div><label class="text-xs font-bold text-gray-500 uppercase ml-1">Email</label><input type="email" id="login-email" required class="w-full mt-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="admin@coottyvision.com"></div>
-                <div><label class="text-xs font-bold text-gray-500 uppercase ml-1">Contraseña</label><input type="password" id="login-pass" required class="w-full mt-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="••••••••"></div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Email</label>
+                    <input type="email" id="login-email" required class="w-full mt-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="admin@coottyvision.com">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Contraseña</label>
+                    <input type="password" id="login-pass" required class="w-full mt-1 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="••••••••">
+                </div>
                 <p id="login-error" class="text-red-500 text-sm hidden text-center font-medium bg-red-50 p-2 rounded-lg"></p>
                 <button type="submit" class="w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold hover:bg-teal-600 transition-all shadow-lg hover:shadow-teal-500/30">Entrar al Sistema</button>
             </form>
@@ -45,67 +51,140 @@
 
     <!-- ADMIN APP -->
     <div id="admin-app" class="hidden flex h-screen">
+        
+        <!-- SIDEBAR -->
         <aside class="w-64 bg-slate-900 text-white flex flex-col hidden md:flex shadow-2xl z-20 border-r border-slate-800">
-            <div class="p-6 flex items-center gap-3 border-b border-slate-800/50"><div class="bg-gradient-to-br from-teal-400 to-emerald-600 p-2 rounded-lg shadow-lg"><i data-lucide="eye" class="w-6 h-6 text-white"></i></div><div><h1 class="font-bold text-lg tracking-tight">Coottyvision</h1><span class="text-[10px] text-teal-400 font-bold uppercase tracking-widest bg-teal-400/10 px-1 rounded">Optical AI</span></div></div>
+            <div class="p-6 flex items-center gap-3 border-b border-slate-800/50">
+                <div class="bg-gradient-to-br from-teal-400 to-emerald-600 p-2 rounded-lg shadow-lg">
+                    <i data-lucide="eye" class="w-6 h-6 text-white"></i>
+                </div>
+                <div><h1 class="font-bold text-lg tracking-tight">Coottyvision</h1><span class="text-[10px] text-teal-400 font-bold uppercase tracking-widest bg-teal-400/10 px-1 rounded">Optical AI</span></div>
+            </div>
             <nav class="flex-1 px-4 py-6 space-y-2">
                 <button onclick="router('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-800 text-white transition-all font-medium"><i data-lucide="layout-grid" class="w-5 h-5"></i> Dashboard</button>
                 <button onclick="router('products')" id="nav-products" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all font-medium"><i data-lucide="glasses" class="w-5 h-5"></i> Monturas y Lentes</button>
-                <button onclick="router('orders')" id="nav-orders" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all font-medium"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Pedidos <span id="nav-badge" class="ml-auto bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden shadow-lg shadow-teal-500/50">New</span></button>
-                <button onclick="router('quotes')" id="nav-quotes" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-amber-800 hover:text-white transition-all font-medium border border-transparent hover:border-amber-700/50"><i data-lucide="file-text" class="w-5 h-5"></i> Cotizaciones <span id="quote-badge" class="ml-auto bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden shadow-lg">New</span></button>
-                <!-- Removed Marketing AI as requested -->
+                <button onclick="router('orders')" id="nav-orders" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all font-medium">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i> Pedidos 
+                    <span id="nav-badge" class="ml-auto bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden shadow-lg shadow-teal-500/50">New</span>
+                </button>
+                <button onclick="router('quotes')" id="nav-quotes" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-amber-800 hover:text-white transition-all font-medium border border-transparent hover:border-amber-700/50">
+                    <i data-lucide="file-text" class="w-5 h-5"></i> Cotizaciones <span id="quote-badge" class="ml-auto bg-amber-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden shadow-lg">New</span>
+                </button>
             </nav>
-            <div class="p-4 border-t border-slate-800/50"><button onclick="window.logout()" class="w-full flex items-center justify-center gap-2 text-red-400 hover:text-red-300 py-3 hover:bg-slate-800 rounded-xl transition-colors font-medium"><i data-lucide="log-out" class="w-4 h-4"></i> Salir</button></div>
+            <div class="p-4 border-t border-slate-800/50">
+                <button onclick="window.logout()" class="w-full flex items-center justify-center gap-2 text-red-400 hover:text-red-300 py-3 hover:bg-slate-800 rounded-xl transition-colors font-medium">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> Salir
+                </button>
+            </div>
         </aside>
 
+        <!-- MAIN CONTENT -->
         <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#F3F4F6]">
             <header class="bg-white/80 backdrop-blur-md border-b px-8 py-4 flex justify-between items-center z-10 sticky top-0">
                 <h2 id="page-title" class="text-2xl font-bold text-gray-800 tracking-tight">Panel General</h2>
-                <div class="flex items-center gap-4"><span class="text-sm font-medium text-gray-500 hidden md:block" id="user-email-display">...</span><div class="h-8 w-8 rounded-full bg-gradient-to-tr from-teal-500 to-emerald-500 flex items-center justify-center text-white font-bold text-xs shadow-md">CV</div></div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-medium text-gray-500 hidden md:block" id="user-email-display">...</span>
+                    <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-teal-500 to-emerald-500 flex items-center justify-center text-white font-bold text-xs shadow-md">CV</div>
+                </div>
             </header>
 
             <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-8">
-                <!-- DASHBOARD -->
+                
+                <!-- VIEW: DASHBOARD -->
                 <div id="view-dashboard" class="view-section fade-in space-y-6 hidden">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all"><div><p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Ingresos (Sol)</p><h3 class="text-3xl font-extrabold text-gray-800 mt-1">$<span id="stat-sales">0.00</span></h3></div><div class="p-3 bg-teal-50 text-teal-600 rounded-xl group-hover:scale-110 transition-transform"><i data-lucide="dollar-sign" class="w-6 h-6"></i></div></div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all"><div><p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monturas</p><h3 class="text-3xl font-extrabold text-gray-800 mt-1" id="stat-products">0</h3></div><div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:scale-110 transition-transform"><i data-lucide="glasses" class="w-6 h-6"></i></div></div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all"><div><p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Pedidos</p><h3 class="text-3xl font-extrabold text-gray-800 mt-1" id="stat-orders">0</h3></div><div class="p-3 bg-orange-50 text-orange-600 rounded-xl group-hover:scale-110 transition-transform"><i data-lucide="shopping-bag" class="w-6 h-6"></i></div></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all">
+                            <div><p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Ingresos (Sol)</p><h3 class="text-3xl font-extrabold text-gray-800 mt-1">$<span id="stat-sales">0.00</span></h3></div>
+                            <div class="p-3 bg-teal-50 text-teal-600 rounded-xl group-hover:scale-110 transition-transform"><i data-lucide="dollar-sign" class="w-6 h-6"></i></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all">
+                            <div><p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monturas</p><h3 class="text-3xl font-extrabold text-gray-800 mt-1" id="stat-products">0</h3></div>
+                            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:scale-110 transition-transform"><i data-lucide="glasses" class="w-6 h-6"></i></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group hover:shadow-md transition-all">
+                            <div><p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Por Cotizar</p><h3 class="text-3xl font-extrabold text-gray-800 mt-1" id="stat-quotes">0</h3></div>
+                            <div class="p-3 bg-amber-50 text-amber-600 rounded-xl group-hover:scale-110 transition-transform"><i data-lucide="file-text" class="w-6 h-6"></i></div>
+                        </div>
                     </div>
+                    
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col h-80"><h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-teal-600"></i> Inventario Actual</h3><div id="dashboard-stock-list" class="space-y-3 overflow-y-auto flex-1 pr-2 custom-scroll"></div></div>
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col h-80"><h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="activity" class="w-5 h-5 text-blue-500"></i> Ventas Recientes</h3><div id="dashboard-recent-sales" class="space-y-3 overflow-y-auto flex-1 pr-2 custom-scroll"></div></div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col h-80">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-teal-600"></i> Inventario Actual</h3>
+                            <div id="dashboard-stock-list" class="space-y-3 overflow-y-auto flex-1 pr-2 custom-scroll"></div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col h-80">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i data-lucide="activity" class="w-5 h-5 text-blue-500"></i> Ventas Recientes</h3>
+                            <div id="dashboard-recent-sales" class="space-y-3 overflow-y-auto flex-1 pr-2 custom-scroll"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- QUOTES -->
+                <!-- VIEW: QUOTES -->
                 <div id="view-quotes" class="view-section fade-in hidden h-full flex flex-col">
-                    <div class="flex justify-between items-center mb-6"><div><h3 class="text-xl font-bold text-gray-800">Solicitudes de Cotización</h3><p class="text-sm text-gray-500">Clientes esperando precio</p></div></div>
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1"><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-amber-50/50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100"><tr><th class="p-5">Cliente</th><th class="p-5">Tipo</th><th class="p-5">Fecha</th><th class="p-5 text-right">Acciones</th></tr></thead><tbody id="quotes-table-body" class="text-sm text-gray-700 divide-y divide-gray-50"></tbody></table></div></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <div><h3 class="text-xl font-bold text-gray-800">Solicitudes de Cotización</h3><p class="text-sm text-gray-500">Clientes esperando precio para lentes a medida</p></div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-amber-50/50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100"><tr><th class="p-5">Cliente</th><th class="p-5">Tipo</th><th class="p-5">Fecha</th><th class="p-5 text-right">Acciones</th></tr></thead>
+                                <tbody id="quotes-table-body" class="text-sm text-gray-700 divide-y divide-gray-50"></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- PRODUCTS -->
+                <!-- VIEW: PRODUCTS -->
                 <div id="view-products" class="view-section fade-in hidden h-full flex flex-col">
-                    <div class="flex justify-between items-center mb-6"><div><h3 class="text-xl font-bold text-gray-800">Catálogo de Sol</h3></div><button onclick="toggleModal('modal-add-product')" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-slate-800 shadow-lg transition-all font-medium"><i data-lucide="plus" class="w-4 h-4"></i> Nuevo Modelo Sol</button></div>
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1"><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-gray-50/50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100"><tr><th class="p-5">Modelo</th><th class="p-5">Precio</th><th class="p-5 text-center">Stock</th><th class="p-5 text-right">Acción</th></tr></thead><tbody id="products-table-body" class="text-sm text-gray-700 divide-y divide-gray-50"></tbody></table></div></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <div><h3 class="text-xl font-bold text-gray-800">Catálogo de Sol</h3><p class="text-sm text-gray-500">Lentes de venta directa</p></div>
+                        <button onclick="toggleModal('modal-add-product')" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-slate-800 shadow-lg transition-all font-medium"><i data-lucide="plus" class="w-4 h-4"></i> Nuevo Modelo Sol</button>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-gray-50/50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100"><tr><th class="p-5">Modelo</th><th class="p-5">Precio</th><th class="p-5 text-center">Stock</th><th class="p-5 text-right">Acción</th></tr></thead>
+                                <tbody id="products-table-body" class="text-sm text-gray-700 divide-y divide-gray-50"></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- ORDERS -->
+                <!-- VIEW: ORDERS -->
                 <div id="view-orders" class="view-section fade-in hidden h-full flex flex-col">
-                    <div class="flex justify-between items-center mb-6"><div><h3 class="text-xl font-bold text-gray-800">Ventas Lentes de Sol</h3></div><button onclick="toggleModal('modal-custom-order')" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition-all font-medium"><i data-lucide="file-plus" class="w-4 h-4"></i> Nuevo Pedido Manual</button></div>
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1"><table class="w-full text-left border-collapse"><thead class="bg-gray-50/50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100"><tr><th class="p-5">Pedido</th><th class="p-5">Cliente</th><th class="p-5">Total</th><th class="p-5">Estado</th><th class="p-5 text-right">Acciones</th></tr></thead><tbody id="orders-table-body" class="text-sm text-gray-700 divide-y divide-gray-50"></tbody></table></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <div><h3 class="text-xl font-bold text-gray-800">Ventas Lentes de Sol</h3><p class="text-sm text-gray-500">Pagos recibidos por Yape/Plin</p></div>
+                        <button onclick="toggleModal('modal-custom-order')" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-teal-200 transition-all transform hover:-translate-y-0.5 font-medium">
+                            <i data-lucide="file-plus" class="w-4 h-4"></i> Nuevo Pedido Manual
+                        </button>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex-1">
+                         <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-50/50 text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-100">
+                                <tr><th class="p-5">Pedido</th><th class="p-5">Cliente</th><th class="p-5">Total</th><th class="p-5">Estado</th><th class="p-5 text-right">Acciones</th></tr>
+                            </thead>
+                            <tbody id="orders-table-body" class="text-sm text-gray-700 divide-y divide-gray-50"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
     <!-- MODALS -->
+    <!-- ADD PRODUCT -->
     <div id="modal-add-product" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center fade-in">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 space-y-5 relative">
             <button onclick="toggleModal('modal-add-product')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i data-lucide="x" class="w-5 h-5"></i></button>
             <h3 class="font-bold text-xl text-gray-800 flex items-center gap-2"><i data-lucide="glasses" class="w-6 h-6 text-teal-600"></i> Nuevo Modelo Sol</h3>
             <form id="add-product-form" class="space-y-4">
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">Nombre</label><input type="text" id="p-name" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Ej: Aviator Classic"></div>
-                <div class="grid grid-cols-2 gap-4"><div><label class="block text-sm font-bold text-gray-700 mb-1">Precio</label><input type="number" step="0.01" id="p-price" required class="w-full border rounded-xl px-4 py-3 bg-gray-50"></div><div><label class="block text-sm font-bold text-gray-700 mb-1">Stock</label><input type="number" id="p-stock" required class="w-full border rounded-xl px-4 py-3 bg-gray-50"></div></div>
+                <div><label class="block text-sm font-bold text-gray-700 mb-1">Nombre del Modelo</label><input type="text" id="p-name" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Ej: Aviator Classic Gold"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1">Precio ($)</label><input type="number" step="0.01" id="p-price" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="0.00"></div>
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1">Stock</label><input type="number" id="p-stock" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Cantidad"></div>
+                </div>
+                <div><label class="block text-sm font-bold text-gray-700 mb-1">Precio Original (Opcional)</label><input type="number" step="0.01" id="p-original-price" class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Para ofertas"></div>
+                <!-- Fixed Category -->
                 <input type="hidden" id="p-category" value="Lentes de Sol">
                 <div><label class="block text-sm font-bold text-gray-700 mb-1">URL Imagen</label><input type="url" id="p-image" class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="https://..."></div>
                 <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-xl">Guardar Modelo</button>
@@ -113,54 +192,90 @@
         </div>
     </div>
 
+    <!-- EDIT PRODUCT -->
     <div id="modal-edit-product" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center fade-in">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 space-y-5 relative">
             <button onclick="toggleModal('modal-edit-product')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i data-lucide="x" class="w-5 h-5"></i></button>
             <h3 class="font-bold text-xl text-gray-800 flex items-center gap-2"><i data-lucide="edit" class="w-6 h-6 text-blue-600"></i> Editar Modelo</h3>
             <form id="edit-product-form" class="space-y-4">
                 <input type="hidden" id="edit-p-id">
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">Nombre</label><input type="text" id="edit-p-name" required class="w-full border rounded-xl px-4 py-3 bg-gray-50"></div>
-                <div class="grid grid-cols-2 gap-4"><div><label class="block text-sm font-bold text-gray-700 mb-1">Precio</label><input type="number" step="0.01" id="edit-p-price" required class="w-full border rounded-xl px-4 py-3 bg-gray-50"></div><div><label class="block text-sm font-bold text-gray-700 mb-1">Stock</label><input type="number" id="edit-p-stock" required class="w-full border rounded-xl px-4 py-3 bg-gray-50"></div></div>
+                <div><label class="block text-sm font-bold text-gray-700 mb-1">Nombre</label><input type="text" id="edit-p-name" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Nombre"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1">Precio ($)</label><input type="number" step="0.01" id="edit-p-price" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="0.00"></div>
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1">Stock</label><input type="number" id="edit-p-stock" required class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Cantidad"></div>
+                </div>
+                <div><label class="block text-sm font-bold text-gray-700 mb-1">Precio Original (Opcional)</label><input type="number" step="0.01" id="edit-p-original-price" class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="Para ofertas"></div>
                 <input type="hidden" id="edit-p-category" value="Lentes de Sol">
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">URL Imagen</label><input type="url" id="edit-p-image" class="w-full border rounded-xl px-4 py-3 bg-gray-50"></div>
+                <div><label class="block text-sm font-bold text-gray-700 mb-1">URL Imagen</label><input type="url" id="edit-p-image" class="w-full border rounded-xl px-4 py-3 bg-gray-50" placeholder="https://..."></div>
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl">Actualizar</button>
             </form>
         </div>
     </div>
 
+    <!-- CUSTOM ORDER -->
     <div id="modal-custom-order" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center fade-in">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-0 overflow-hidden max-h-[90vh] flex flex-col">
-            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center"><h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="clipboard-list" class="w-5 h-5"></i> Nuevo Pedido</h3><button onclick="toggleModal('modal-custom-order')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="clipboard-list" class="w-5 h-5"></i> Nuevo Pedido / Receta</h3>
+                <button onclick="toggleModal('modal-custom-order')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
             <form id="custom-order-form" class="p-6 space-y-4 overflow-y-auto flex-1 custom-scroll">
-                <div class="grid grid-cols-2 gap-4"><div><label class="text-xs font-bold text-gray-500 uppercase">Cliente</label><input type="text" id="c-name" required class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-teal-500 outline-none"></div><div><label class="text-xs font-bold text-gray-500 uppercase">Total ($)</label><input type="number" step="0.01" id="c-total" required class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-teal-500 outline-none"></div></div>
-                <div><label class="text-xs font-bold text-gray-500 uppercase">Montura</label><input type="text" id="c-frame" class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-teal-500 outline-none"></div>
-                <div><label class="text-xs font-bold text-gray-500 uppercase">Tipo</label><select id="c-lens-type" class="w-full border rounded-lg px-3 py-2 mt-1 bg-white"><option>Monofocal</option><option>Bifocal</option><option>Progresivo</option><option>Sol Neutro</option><option>Sol con Medida</option></select></div>
-                <div class="bg-gray-50 p-3 rounded-xl border border-gray-200"><p class="text-xs font-bold text-teal-600 uppercase mb-2">Receta</p><div class="grid grid-cols-4 gap-2 text-center text-xs font-bold text-gray-500 mb-1"><div></div><div>ESF</div><div>CIL</div><div>EJE</div></div><div class="grid grid-cols-4 gap-2 items-center mb-2"><div class="text-xs font-bold text-right pr-2">OD</div><input type="text" id="od-sph" class="border rounded px-1 py-1 text-center"><input type="text" id="od-cyl" class="border rounded px-1 py-1 text-center"><input type="text" id="od-ax" class="border rounded px-1 py-1 text-center"></div><div class="grid grid-cols-4 gap-2 items-center"><div class="text-xs font-bold text-right pr-2">OI</div><input type="text" id="oi-sph" class="border rounded px-1 py-1 text-center"><input type="text" id="oi-cyl" class="border rounded px-1 py-1 text-center"><input type="text" id="oi-ax" class="border rounded px-1 py-1 text-center"></div></div>
-                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl">Crear</button>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="text-xs font-bold text-gray-500 uppercase">Cliente</label><input type="text" id="c-name" required class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Nombre Cliente"></div>
+                    <div><label class="text-xs font-bold text-gray-500 uppercase">Monto Total ($)</label><input type="number" step="0.01" id="c-total" required class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-teal-500 outline-none" placeholder="0.00"></div>
+                </div>
+                <div><label class="text-xs font-bold text-gray-500 uppercase">Montura / Modelo</label><input type="text" id="c-frame" class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Ej: RayBan Hexagonal - Negro"></div>
+                <div><label class="text-xs font-bold text-gray-500 uppercase">Tipo de Lente</label><select id="c-lens-type" class="w-full border rounded-lg px-3 py-2 mt-1 bg-white"><option value="Monofocal">Monofocal (Lejos/Cerca)</option><option value="Bifocal">Bifocal</option><option value="Progresivo">Progresivo (Multifocal)</option><option value="Sol Neutro">Sol Neutro (Sin medida)</option><option value="Sol con Medida">Sol con Medida</option><option value="Solo Montura">Solo Montura</option></select></div>
+                <div class="bg-gray-50 p-3 rounded-xl border border-gray-200">
+                    <p class="text-xs font-bold text-teal-600 uppercase mb-2 flex items-center gap-1"><i data-lucide="eye" class="w-3 h-3"></i> Receta Oftálmica (Opcional)</p>
+                    <div class="grid grid-cols-4 gap-2 text-center text-xs font-bold text-gray-500 mb-1"><div></div><div>ESF</div><div>CIL</div><div>EJE</div></div>
+                    <div class="grid grid-cols-4 gap-2 items-center mb-2"><div class="text-xs font-bold text-right pr-2">OD</div><input type="text" id="od-sph" class="border rounded px-1 py-1 text-center" placeholder="-0.00"><input type="text" id="od-cyl" class="border rounded px-1 py-1 text-center" placeholder="-0.00"><input type="text" id="od-ax" class="border rounded px-1 py-1 text-center" placeholder="0°"></div>
+                    <div class="grid grid-cols-4 gap-2 items-center"><div class="text-xs font-bold text-right pr-2">OI</div><input type="text" id="oi-sph" class="border rounded px-1 py-1 text-center" placeholder="-0.00"><input type="text" id="oi-cyl" class="border rounded px-1 py-1 text-center" placeholder="-0.00"><input type="text" id="oi-ax" class="border rounded px-1 py-1 text-center" placeholder="0°"></div>
+                </div>
+                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-lg transition-all">Crear Pedido</button>
             </form>
         </div>
     </div>
 
+    <!-- ORDER DETAILS -->
     <div id="modal-order-details" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center fade-in">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-0 overflow-hidden flex flex-col max-h-[80vh]">
-            <div class="bg-slate-50 px-6 py-4 border-b flex justify-between items-center"><h3 class="font-bold text-lg text-gray-800">Detalle</h3><button onclick="toggleModal('modal-order-details')" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+            <div class="bg-slate-50 px-6 py-4 border-b flex justify-between items-center">
+                <h3 class="font-bold text-lg text-gray-800">Detalle del Pedido</h3>
+                <button onclick="toggleModal('modal-order-details')" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
             <div id="order-items-list" class="p-6 overflow-y-auto space-y-4 bg-white flex-1 custom-scroll"></div>
-            <div class="p-6 bg-gray-50 border-t flex justify-between items-center text-lg font-bold text-gray-800"><span>Total</span><span id="detail-total">$0.00</span></div>
+            <div class="p-6 bg-gray-50 border-t flex justify-between items-center text-lg font-bold text-gray-800"><span>Total Pagado</span><span id="detail-total">$0.00</span></div>
         </div>
     </div>
 
+    <!-- QUOTE DETAILS & EDIT -->
     <div id="modal-quote-details" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center fade-in">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-0 overflow-hidden max-h-[90vh] flex flex-col">
             <div class="bg-amber-50 px-6 py-4 border-b border-amber-100 flex justify-between items-center"><h3 class="font-bold text-lg text-amber-900 flex gap-2"><i data-lucide="file-text" class="w-5 h-5"></i> Cotización</h3><button onclick="toggleModal('modal-quote-details')" class="text-amber-700 hover:text-amber-900"><i data-lucide="x" class="w-5 h-5"></i></button></div>
             <div id="quote-content" class="p-8 bg-white flex-1 overflow-y-auto custom-scroll space-y-4 text-sm"></div>
-            <div class="p-4 bg-gray-50 text-center border-t"><a href="#" id="quote-whatsapp-link" target="_blank" class="text-teal-600 font-bold hover:underline">Responder WhatsApp</a></div>
+            <div class="p-4 bg-gray-50 text-center border-t flex justify-between">
+                <a href="#" id="quote-whatsapp-link" target="_blank" class="text-teal-600 font-bold hover:underline flex items-center gap-1"><i data-lucide="message-circle" class="w-4 h-4"></i> Responder WhatsApp</a>
+            </div>
         </div>
     </div>
 
+    <!-- EDIT QUOTE MODAL (SEPARATE FOR CLEANLINESS) -->
     <div id="modal-edit-quote" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center fade-in">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-0 overflow-hidden max-h-[90vh] flex flex-col">
-            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center"><h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="edit" class="w-5 h-5"></i> Editar Medidas</h3><button onclick="toggleModal('modal-edit-quote')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button></div>
-            <form id="edit-quote-form" class="p-6 space-y-4 overflow-y-auto flex-1"><input type="hidden" id="edit-q-id"><div class="bg-gray-50 p-3 rounded-xl border border-gray-200"><div class="grid grid-cols-4 gap-2 text-center text-xs font-bold text-gray-500 mb-1"><div></div><div>ESF</div><div>CIL</div><div>EJE</div></div><div class="grid grid-cols-4 gap-2 items-center mb-2"><div class="text-xs font-bold text-right pr-2">OD</div><input type="text" id="edit-q-od-sph" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-od-cyl" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-od-ax" class="border rounded px-1 py-1 text-center"></div><div class="grid grid-cols-4 gap-2 items-center"><div class="text-xs font-bold text-right pr-2">OI</div><input type="text" id="edit-q-oi-sph" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-oi-cyl" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-oi-ax" class="border rounded px-1 py-1 text-center"></div></div><button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl">Guardar</button></form>
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="edit" class="w-5 h-5"></i> Editar Medidas Cotización</h3>
+                <button onclick="toggleModal('modal-edit-quote')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <form id="edit-quote-form" class="p-6 space-y-4 overflow-y-auto flex-1">
+                <input type="hidden" id="edit-q-id">
+                <div class="bg-gray-50 p-3 rounded-xl border border-gray-200">
+                    <div class="grid grid-cols-4 gap-2 text-center text-xs font-bold text-gray-500 mb-1"><div></div><div>ESF</div><div>CIL</div><div>EJE</div></div>
+                    <div class="grid grid-cols-4 gap-2 items-center mb-2"><div class="text-xs font-bold text-right pr-2">OD</div><input type="text" id="edit-q-od-sph" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-od-cyl" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-od-ax" class="border rounded px-1 py-1 text-center"></div>
+                    <div class="grid grid-cols-4 gap-2 items-center"><div class="text-xs font-bold text-right pr-2">OI</div><input type="text" id="edit-q-oi-sph" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-oi-cyl" class="border rounded px-1 py-1 text-center"><input type="text" id="edit-q-oi-ax" class="border rounded px-1 py-1 text-center"></div>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg">Guardar Cambios</button>
+            </form>
         </div>
     </div>
 
@@ -214,29 +329,64 @@
         }
         
         window.copyToClipboard = (id) => { navigator.clipboard.writeText(document.getElementById(id).innerText); alert("Copiado"); };
+
+        // STATUS CYCLE LOGIC
         window.cycleOrderStatus = async (id, currentStatus) => {
             const flow = ['pending', 'processing', 'shipped', 'completed'];
-            try { await updateDoc(doc(db, 'orders', id), { status: flow[(flow.indexOf(currentStatus) + 1) % flow.length] }); } catch(e) { alert("Error"); }
+            const nextIndex = (flow.indexOf(currentStatus) + 1) % flow.length;
+            const nextStatus = flow[nextIndex];
+            try { await updateDoc(doc(db, 'orders', id), { status: nextStatus }); } catch(e) { alert("Error"); }
         };
 
         window.deleteProduct = async (id) => { if(confirm("¿Eliminar modelo?")) try { await deleteDoc(doc(db, 'products', id)); } catch(e) { alert("Error"); } };
         window.deleteOrder = async (id) => { if(confirm("¿Eliminar pedido?")) try { await deleteDoc(doc(db, 'orders', id)); } catch(e) { alert("Error"); } };
         window.deleteQuote = async (id) => { if(confirm("¿Eliminar cotización?")) try { await deleteDoc(doc(db, 'quotes', id)); } catch(e) { alert("Error"); } };
 
+        // OPEN EDIT MODAL
         window.openEditProduct = (id) => {
-            const p = products.find(x => x.id === id); if (!p) return;
-            document.getElementById('edit-p-id').value = id; document.getElementById('edit-p-name').value = p.name; document.getElementById('edit-p-price').value = p.price; document.getElementById('edit-p-stock').value = p.stock; document.getElementById('edit-p-category').value = p.category; document.getElementById('edit-p-image').value = p.imageUrl;
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('edit-p-id').value = id;
+            document.getElementById('edit-p-name').value = p.name;
+            document.getElementById('edit-p-price').value = p.price;
+            document.getElementById('edit-p-stock').value = p.stock;
+            document.getElementById('edit-p-original-price').value = p.originalPrice || ''; // For discounts
+            document.getElementById('edit-p-category').value = p.category;
+            document.getElementById('edit-p-image').value = p.imageUrl;
             window.toggleModal('modal-edit-product');
         };
 
+        // HANDLE EDIT SUBMIT
         document.getElementById('edit-product-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            try { await updateDoc(doc(db, 'products', document.getElementById('edit-p-id').value), { name: document.getElementById('edit-p-name').value, price: parseFloat(document.getElementById('edit-p-price').value), stock: parseInt(document.getElementById('edit-p-stock').value), category: document.getElementById('edit-p-category').value, imageUrl: document.getElementById('edit-p-image').value }); window.toggleModal('modal-edit-product'); } catch(err) { alert("Error al actualizar"); }
+            const id = document.getElementById('edit-p-id').value;
+            try {
+                await updateDoc(doc(db, 'products', id), {
+                    name: document.getElementById('edit-p-name').value,
+                    price: parseFloat(document.getElementById('edit-p-price').value),
+                    stock: parseInt(document.getElementById('edit-p-stock').value),
+                    originalPrice: document.getElementById('edit-p-original-price').value ? parseFloat(document.getElementById('edit-p-original-price').value) : null,
+                    category: document.getElementById('edit-p-category').value,
+                    imageUrl: document.getElementById('edit-p-image').value
+                });
+                window.toggleModal('modal-edit-product');
+            } catch(err) { alert("Error al actualizar: " + err.message); }
         });
 
         document.getElementById('add-product-form').addEventListener('submit', async(e)=>{ 
             e.preventDefault(); 
-            try { await addDoc(collection(db,'products'), { name: document.getElementById('p-name').value, price: parseFloat(document.getElementById('p-price').value), stock: parseInt(document.getElementById('p-stock').value), category: 'Lentes de Sol', imageUrl: document.getElementById('p-image').value, createdAt: new Date().toISOString() }); e.target.reset(); toggleModal('modal-add-product'); } catch(e){ alert("Error"); } 
+            try { 
+                await addDoc(collection(db,'products'), { 
+                    name: document.getElementById('p-name').value, 
+                    price: parseFloat(document.getElementById('p-price').value), 
+                    stock: parseInt(document.getElementById('p-stock').value), 
+                    originalPrice: document.getElementById('p-original-price').value ? parseFloat(document.getElementById('p-original-price').value) : null,
+                    category: 'Lentes de Sol', 
+                    imageUrl: document.getElementById('p-image').value, 
+                    createdAt: new Date().toISOString() 
+                }); 
+                e.target.reset(); toggleModal('modal-add-product'); 
+            } catch(e){ alert("Error"); } 
         });
 
         document.getElementById('custom-order-form').addEventListener('submit', async (e) => {
@@ -245,48 +395,66 @@
                 const orderId = '#' + Math.random().toString(36).substr(2, 6).toUpperCase();
                 await addDoc(collection(db, 'orders'), {
                     orderId: orderId,
-                    items: [{ name: `Lente a Medida: ${document.getElementById('c-frame').value}`, category: document.getElementById('c-lens-type').value, price: parseFloat(document.getElementById('c-total').value), imageUrl: 'https://cdn-icons-png.flaticon.com/512/3004/3004458.png', prescription: { od: { sph: document.getElementById('od-sph').value, cyl: document.getElementById('od-cyl').value, ax: document.getElementById('od-ax').value }, oi: { sph: document.getElementById('oi-sph').value, cyl: document.getElementById('oi-cyl').value, ax: document.getElementById('oi-ax').value } }, isCustom: true }],
+                    items: [{
+                        name: `Lente a Medida: ${document.getElementById('c-frame').value}`,
+                        category: document.getElementById('c-lens-type').value,
+                        price: parseFloat(document.getElementById('c-total').value),
+                        imageUrl: 'https://cdn-icons-png.flaticon.com/512/3004/3004458.png',
+                        prescription: { od: { sph: document.getElementById('od-sph').value, cyl: document.getElementById('od-cyl').value, ax: document.getElementById('od-ax').value }, oi: { sph: document.getElementById('oi-sph').value, cyl: document.getElementById('oi-cyl').value, ax: document.getElementById('oi-ax').value } },
+                        isCustom: true
+                    }],
                     total: parseFloat(document.getElementById('c-total').value), status: 'pending', date: new Date().toISOString(), customer: document.getElementById('c-name').value, isManual: true
                 });
-                e.target.reset(); window.toggleModal('modal-custom-order'); alert("Pedido creado");
+                e.target.reset(); window.toggleModal('modal-custom-order'); alert("Pedido manual creado");
             } catch (err) { alert("Error"); }
         });
 
         function renderOrders() {
-            document.getElementById('orders-table-body').innerHTML = orders.map(o => {
-                let bc='bg-gray-100 text-gray-600', bt='Desconocido';
-                if (o.status === 'pending') { bc='bg-amber-100 text-amber-700'; bt='Pendiente'; } else if (o.status === 'processing') { bc='bg-blue-100 text-blue-700'; bt='Taller'; } else if (o.status === 'shipped') { bc='bg-purple-100 text-purple-700'; bt='Enviado'; } else if (o.status === 'completed') { bc='bg-green-100 text-green-700'; bt='Entregado'; }
-                const btn = `<button onclick="window.cycleOrderStatus('${o.id}', '${o.status}')" class="bg-slate-100 text-slate-600 border border-slate-200 p-2 rounded-lg hover:bg-slate-200 transition-colors"><i data-lucide="arrow-right-circle" class="w-4 h-4"></i></button>`;
-                const del = `<button onclick="window.deleteOrder('${o.id}')" class="bg-red-50 text-red-500 p-2 rounded hover:bg-red-100"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
-                return `<tr class="hover:bg-gray-50"><td class="p-4 font-mono text-xs text-gray-500">${o.orderId||'#'+o.id.slice(0,6).toUpperCase()}${o.isManual?'<span class="text-[10px] bg-blue-100 text-blue-600 px-1 rounded ml-1">Manual</span>':''}</td><td class="p-4 text-sm font-medium">${o.customer||'Web'}</td><td class="p-4 font-bold text-gray-800">$${parseFloat(o.total).toFixed(2)}</td><td class="p-4"><span class="px-2 py-1 rounded text-xs font-bold ${bc}">${bt}</span></td><td class="p-4 text-right"><div class="flex justify-end gap-2">${btn}${del}<button onclick="window.viewOrder('${o.id}')" class="bg-white border text-gray-600 px-3 py-1.5 rounded text-xs font-medium shadow-sm flex gap-1 hover:bg-gray-50"><i data-lucide="eye" class="w-3 h-3"></i> Ver</button></div></td></tr>`;
-            }).join('');
-            lucide.createIcons();
+            if(document.getElementById('orders-table-body')) {
+                document.getElementById('orders-table-body').innerHTML = orders.map(o => {
+                    let bc='bg-gray-100 text-gray-600', bt='Desconocido';
+                    if (o.status === 'pending') { bc='bg-amber-100 text-amber-700'; bt='Pendiente'; } else if (o.status === 'processing') { bc='bg-blue-100 text-blue-700'; bt='Taller'; } else if (o.status === 'shipped') { bc='bg-purple-100 text-purple-700'; bt='Enviado'; } else if (o.status === 'completed') { bc='bg-green-100 text-green-700'; bt='Entregado'; }
+                    const btn = `<button onclick="window.cycleOrderStatus('${o.id}','${o.status}')" class="bg-slate-100 text-slate-600 border border-slate-200 p-2 rounded-lg hover:bg-slate-200 transition-colors" title="Avanzar Estado"><i data-lucide="arrow-right-circle" class="w-4 h-4"></i></button>`;
+                    const del = `<button onclick="window.deleteOrder('${o.id}')" class="bg-red-50 text-red-500 p-2 rounded hover:bg-red-100" title="Eliminar"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
+                    const type = o.isManual ? `<span class="text-[10px] bg-blue-100 text-blue-600 px-1 rounded border border-blue-200 ml-1">Manual</span>` : '';
+                    const displayId = o.orderId || ('#' + o.id.slice(0,6).toUpperCase());
+                    
+                    return `<tr class="hover:bg-gray-50"><td class="p-4 font-mono text-xs text-gray-500">${displayId}${type}</td><td class="p-4 text-sm font-medium">${o.customer||'Web'}</td><td class="p-4 font-bold text-gray-800">$${parseFloat(o.total).toFixed(2)}</td><td class="p-4"><span class="px-2 py-1 rounded-lg text-xs font-bold border ${bc.replace('bg-', 'border-').replace('100', '200')} ${bc}">${bt}</span></td><td class="p-4 text-right"><div class="flex justify-end gap-2">${btn}${del}<button onclick="window.viewOrder('${o.id}')" class="bg-white border text-gray-600 px-3 py-1.5 rounded text-xs font-medium shadow-sm flex gap-1 hover:bg-gray-50"><i data-lucide="eye" class="w-3 h-3"></i> Ver</button></div></td></tr>`;
+                }).join('');
+            }
+            if(document.getElementById('dashboard-recent-sales')) {
+                document.getElementById('dashboard-recent-sales').innerHTML = orders.slice(0,3).map(o => `<div class="flex justify-between p-3 bg-gray-50 rounded border border-gray-100 mb-2"><span class="font-bold text-sm">Pedido ${o.orderId||'#'+o.id.slice(0,4)}</span><span class="font-bold text-teal-600">S/${parseFloat(o.total).toFixed(2)}</span></div>`).join('');
+            }
+            updateStats(); lucide.createIcons();
         }
 
         function renderQuotes() {
-            document.getElementById('quotes-table-body').innerHTML = quotes.map(q => `<tr class="hover:bg-amber-50/30 group"><td class="p-4 font-medium text-slate-800">${q.name}</td><td class="p-4 text-sm text-slate-500">${q.type}</td><td class="p-4 text-xs text-slate-400">${new Date(q.date).toLocaleDateString()}</td><td class="p-4 text-right"><div class="flex justify-end gap-2"><button onclick="window.deleteQuote('${q.id}')" class="p-1.5 text-red-400 hover:bg-red-50 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button><button onclick="window.viewQuote('${q.id}')" class="text-amber-600 hover:underline text-xs font-bold flex items-center gap-1 bg-amber-50 px-2 py-1 rounded border border-amber-200"><i data-lucide="eye" class="w-3 h-3"></i> Ver</button></div></td></tr>`).join('');
-            lucide.createIcons();
+            if(document.getElementById('quotes-table-body')) {
+                document.getElementById('quotes-table-body').innerHTML = quotes.map(q => `<tr class="hover:bg-amber-50/30 group"><td class="p-4 font-medium">${q.name}</td><td class="p-4 text-sm text-slate-500">${q.type}</td><td class="p-4 text-xs text-slate-400">${new Date(q.date).toLocaleDateString()}</td><td class="p-4 text-right"><div class="flex justify-end gap-2"><button onclick="window.deleteQuote('${q.id}')" class="p-1.5 text-red-400 hover:bg-red-50 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button><button onclick="window.viewQuote('${q.id}')" class="text-amber-600 hover:underline text-xs font-bold flex items-center gap-1 bg-amber-50 px-2 py-1 rounded border border-amber-200"><i data-lucide="eye" class="w-3 h-3"></i> Ver</button></div></td></tr>`).join('');
+            }
+            updateStats(); lucide.createIcons();
         }
 
         function renderProducts() {
-            const sorted = [...products].sort((a, b) => a.stock - b.stock);
+            const sortedStock = [...products].sort((a, b) => a.stock - b.stock);
             if(document.getElementById('dashboard-stock-list')) {
-                document.getElementById('dashboard-stock-list').innerHTML = sorted.length ? sorted.map(p => {
-                    const isLow = p.stock < 0; const cls = isLow ? 'bg-red-50 border-red-100 text-red-700' : (p.stock<5?'bg-amber-50 border-amber-100 text-amber-700':'bg-teal-50 border-teal-100 text-teal-700');
-                    return `<div class="flex items-center justify-between p-3 rounded-xl border ${cls} transition-all hover:shadow-sm mb-2"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden border border-gray-100 shadow-sm"><img src="${p.imageUrl}" class="w-full h-full object-cover"></div><div><p class="font-bold text-sm truncate w-32">${p.name}</p><p class="text-[10px] uppercase font-bold tracking-wider">${p.category}</p></div></div><div class="text-right"><span class="block font-bold text-lg leading-none">${p.stock}</span><span class="text-[10px] font-medium">${isLow?'Sobreventa':'Unids.'}</span></div></div>`;
+                document.getElementById('dashboard-stock-list').innerHTML = sortedStock.length ? sortedStock.map(p => {
+                    const isLow = p.stock < 0; 
+                    const colorClass = isLow ? 'bg-red-50 border-red-100 text-red-700' : (p.stock < 5 ? 'bg-amber-50 border-amber-100 text-amber-700' : 'bg-teal-50 border-teal-100 text-teal-700');
+                    const label = isLow ? 'Sobreventa' : 'Unids.';
+                    return `<div class="flex items-center justify-between p-3 rounded-xl border ${colorClass} transition-all hover:shadow-sm mb-2"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden border border-gray-100 shadow-sm"><img src="${p.imageUrl}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/40'"></div><div><p class="font-bold text-sm truncate w-32 md:w-40">${p.name}</p><p class="text-[10px] uppercase opacity-80 font-bold tracking-wider">${p.category}</p></div></div><div class="text-right"><span class="block font-bold text-lg leading-none">${p.stock}</span><span class="text-[10px] font-medium">${label}</span></div></div>`;
                 }).join('') : '<p class="text-center text-gray-400 text-xs py-4">Vacío</p>';
             }
             if(document.getElementById('products-table-body')) {
-                document.getElementById('products-table-body').innerHTML = products.map(p => `<tr class="hover:bg-gray-50 group"><td class="p-4"><div class="flex items-center gap-4"><div class="w-12 h-12 rounded bg-gray-200 overflow-hidden"><img src="${p.imageUrl}" class="w-full h-full object-cover"></div><div><p class="font-bold text-gray-800">${p.name}</p></div></div></td><td class="p-4 font-semibold">$${parseFloat(p.price).toFixed(2)}</td><td class="p-4 text-center"><span class="px-3 py-1 rounded-full text-xs font-bold ${p.stock<0?'bg-red-100 text-red-600':(p.stock<5?'bg-amber-100 text-amber-600':'bg-green-100 text-green-600')}">${p.stock} unids.</span></td><td class="p-4 text-right"><button onclick="window.openEditProduct('${p.id}')" class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded transition mr-1"><i data-lucide="edit" class="w-4 h-4"></i></button><button onclick="window.deleteProduct('${p.id}')" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button></td></tr>`).join('');
+                document.getElementById('products-table-body').innerHTML = products.map(p => {
+                     const oldPrice = p.originalPrice ? `<span class="line-through text-gray-400 text-xs mr-1">S/${parseFloat(p.originalPrice).toFixed(2)}</span>` : '';
+                     return `<tr class="hover:bg-gray-50 group"><td class="p-4"><div class="flex items-center gap-4"><div class="w-12 h-12 rounded bg-gray-200 overflow-hidden"><img src="${p.imageUrl}" class="w-full h-full object-cover"></div><div><p class="font-bold text-gray-800">${p.name}</p></div></div></td><td class="p-4 font-semibold">${oldPrice}S/${parseFloat(p.price).toFixed(2)}</td><td class="p-4 text-center"><span class="px-3 py-1 rounded-full text-xs font-bold ${p.stock<0?'bg-red-100 text-red-600':(p.stock<5?'bg-amber-100 text-amber-600':'bg-green-100 text-green-600')}">${p.stock} unids.</span></td><td class="p-4 text-right"><button onclick="window.openEditProduct('${p.id}')" class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded transition mr-1"><i data-lucide="edit" class="w-4 h-4"></i></button><button onclick="window.deleteProduct('${p.id}')" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button></td></tr>`
+                }).join('');
             }
-            if(document.getElementById('dashboard-recent-sales')) {
-                document.getElementById('dashboard-recent-sales').innerHTML = orders.slice(0,3).map(o => `<div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-100 mb-2"><div><p class="font-bold text-sm text-gray-800">Pedido ${o.orderId||'#'+o.id.slice(0,4)}</p></div><div class="text-right"><p class="font-bold text-teal-600">$${parseFloat(o.total).toFixed(2)}</p></div></div>`).join('');
-            }
-            updateStats();
-            lucide.createIcons();
+            updateStats(); lucide.createIcons();
         }
 
-        function updateDashboard() { renderProducts(); }
+        function updateDashboard() { renderProducts(); renderOrders(); renderQuotes(); }
         function updateStats() {
             if(document.getElementById('stat-products')) document.getElementById('stat-products').innerText = products.reduce((a,p)=>a+p.stock,0);
             if(document.getElementById('stat-orders')) document.getElementById('stat-orders').innerText = orders.length;
@@ -294,30 +462,25 @@
             if(document.getElementById('stat-quotes')) document.getElementById('stat-quotes').innerText = quotes.length;
         }
 
+        // --- VIEW & EDIT PRESCRIPTION ---
         window.viewOrder = (id) => {
             const o = orders.find(x => x.id === id); if(!o) return;
-            document.getElementById('order-items-list').innerHTML = (o.items||[]).map((i,x)=> `<div class="py-4 border-b border-slate-100 last:border-0"><div class="flex items-center gap-4 mb-3"><img src="${i.imageUrl}" class="w-12 h-12 rounded object-cover"><div class="flex-1"><p class="font-bold text-sm">${i.name}</p></div><div class="text-right"><p class="font-bold text-sm">$${i.price}</p><button onclick="window.toggleEditRx('${o.id}',${x})" class="text-xs text-teal-600 underline flex items-center gap-1 ml-auto"><i data-lucide="edit-3" class="w-3 h-3"></i> Receta</button></div></div><div id="rx-view-${o.id}-${x}" class="${(i.prescription?.od?.sph||i.prescription?.oi?.sph)?'':'hidden'} bg-slate-50 p-2 rounded border text-xs grid grid-cols-2 gap-4"><div class="text-center"><p class="font-bold">OD</p>${i.prescription?.od?.sph}/${i.prescription?.od?.cyl}x${i.prescription?.od?.ax}</div><div class="text-center"><p class="font-bold">OI</p>${i.prescription?.oi?.sph}/${i.prescription?.oi?.cyl}x${i.prescription?.oi?.ax}</div></div><div id="rx-edit-${o.id}-${x}" class="hidden bg-white p-3 rounded border shadow-sm"><div class="grid grid-cols-4 gap-2 mb-2 text-xs text-center font-bold"><div></div><div>SPH</div><div>CYL</div><div>AX</div></div><div class="grid grid-cols-4 gap-2 mb-2"><span class="text-xs font-bold text-right">OD</span><input id="rx-od-sph-${o.id}-${x}" value="${i.prescription?.od?.sph||''}" class="border rounded px-1 text-center text-xs"><input id="rx-od-cyl-${o.id}-${x}" value="${i.prescription?.od?.cyl||''}" class="border rounded px-1 text-center text-xs"><input id="rx-od-ax-${o.id}-${x}" value="${i.prescription?.od?.ax||''}" class="border rounded px-1 text-center text-xs"></div><div class="grid grid-cols-4 gap-2 mb-2"><span class="text-xs font-bold text-right">OI</span><input id="rx-oi-sph-${o.id}-${x}" value="${i.prescription?.oi?.sph||''}" class="border rounded px-1 text-center text-xs"><input id="rx-oi-cyl-${o.id}-${x}" value="${i.prescription?.oi?.cyl||''}" class="border rounded px-1 text-center text-xs"><input id="rx-oi-ax-${o.id}-${x}" value="${i.prescription?.oi?.ax||''}" class="border rounded px-1 text-center text-xs"></div><div class="flex justify-end"><button onclick="window.saveRx('${o.id}',${x})" class="bg-teal-600 text-white px-2 py-1 rounded text-xs">Guardar</button></div></div></div>`).join('');
-            document.getElementById('detail-total').innerText = '$'+parseFloat(o.total).toFixed(2); window.toggleModal('modal-order-details'); lucide.createIcons();
+            document.getElementById('order-items-list').innerHTML = (o.items||[]).map((i,x)=> `<div class="py-4 border-b last:border-0"><div class="flex items-center gap-3 mb-2"><img src="${i.imageUrl}" class="w-10 h-10 rounded"><div class="flex-1"><p class="font-bold text-sm">${i.name}</p></div></div><div class="bg-slate-50 p-2 rounded text-xs grid grid-cols-2 gap-2"><div class="text-center"><strong>OD</strong> ${i.prescription?.od?.sph||''}/${i.prescription?.od?.cyl||''}/${i.prescription?.od?.ax||''}</div><div class="text-center"><strong>OI</strong> ${i.prescription?.oi?.sph||''}/${i.prescription?.oi?.cyl||''}/${i.prescription?.oi?.ax||''}</div></div><button onclick="window.toggleEditRx('${o.id}',${x})" class="text-xs text-teal-600 underline mt-1 w-full text-right">Editar Receta</button><div id="rx-edit-${o.id}-${x}" class="hidden mt-2 bg-white p-2 border rounded"><input id="rx-od-sph-${o.id}-${x}" placeholder="OD SPH" class="border w-full mb-1 text-xs p-1"><input id="rx-od-cyl-${o.id}-${x}" placeholder="OD CYL" class="border w-full mb-1 text-xs p-1"><input id="rx-od-ax-${o.id}-${x}" placeholder="OD AX" class="border w-full mb-1 text-xs p-1"><input id="rx-oi-sph-${o.id}-${x}" placeholder="OI SPH" class="border w-full mb-1 text-xs p-1"><input id="rx-oi-cyl-${o.id}-${x}" placeholder="OI CYL" class="border w-full mb-1 text-xs p-1"><input id="rx-oi-ax-${o.id}-${x}" placeholder="OI AX" class="border w-full mb-1 text-xs p-1"><button onclick="window.saveRx('${o.id}',${x})" class="bg-teal-600 text-white w-full rounded py-1 text-xs">Guardar</button></div></div>`).join('');
+            document.getElementById('detail-total').innerText = 'S/'+parseFloat(o.total).toFixed(2); window.toggleModal('modal-order-details');
         };
 
-        window.toggleEditRx = (oid, idx) => { document.getElementById(`rx-view-${oid}-${idx}`).classList.toggle('hidden'); document.getElementById(`rx-edit-${oid}-${idx}`).classList.toggle('hidden'); };
+        window.toggleEditRx = (oid, idx) => document.getElementById(`rx-edit-${oid}-${idx}`).classList.toggle('hidden');
         window.saveRx = async(oid, idx) => {
             const o = orders.find(x=>x.id===oid); const items = [...o.items];
             items[idx].prescription = { od: {sph:document.getElementById(`rx-od-sph-${oid}-${idx}`).value, cyl:document.getElementById(`rx-od-cyl-${oid}-${idx}`).value, ax:document.getElementById(`rx-od-ax-${oid}-${idx}`).value}, oi: {sph:document.getElementById(`rx-oi-sph-${oid}-${idx}`).value, cyl:document.getElementById(`rx-oi-cyl-${oid}-${idx}`).value, ax:document.getElementById(`rx-oi-ax-${oid}-${idx}`).value} };
             await updateDoc(doc(db,'orders',oid), {items}); alert("Guardado"); window.viewOrder(oid);
         };
 
-        window.viewQuote = (id)=>{ const q=quotes.find(x=>x.id===id); document.getElementById('quote-content').innerHTML = `<p><strong>Cliente:</strong> ${q.name}</p><p><strong>Tipo:</strong> ${q.type}</p><p><strong>Notas:</strong> ${q.notes}</p><div class="bg-gray-50 p-3 rounded mt-2 text-xs font-mono"><p>OD: ${q.prescription?.od}</p><p>OI: ${q.prescription?.oi}</p></div><button onclick="window.openEditQuote('${q.id}')" class="text-blue-600 text-xs underline mt-2">Editar Medidas</button>`; document.getElementById('quote-whatsapp-link').href = `https://wa.me/51999999999?text=Hola ${q.name}...`; window.toggleModal('modal-quote-details'); };
-        window.openEditQuote = (id)=>{ const q=quotes.find(x=>x.id===id); document.getElementById('edit-q-id').value=id; window.toggleModal('modal-edit-quote'); window.toggleModal('modal-quote-details'); };
+        window.viewQuote = (id)=>{ const q=quotes.find(x=>x.id===id); document.getElementById('quote-content').innerHTML = `<p><strong>Cliente:</strong> ${q.name}</p><p><strong>Tipo:</strong> ${q.type}</p><p><strong>Notas:</strong> ${q.notes}</p><div class="bg-gray-50 p-3 rounded mt-2 text-xs font-mono"><p>OD: ${q.prescription?.od}</p><p>OI: ${q.prescription?.oi}</p></div><button onclick="window.openEditQuote('${q.id}')" class="text-blue-600 text-xs underline mt-2">Editar Medidas</button>`; document.getElementById('quote-whatsapp-link').href = `https://wa.me/51999999999?text=${encodeURIComponent(`Hola ${q.name}, vimos tu cotización`)}`; window.toggleModal('modal-quote-details'); };
+        window.openEditQuote = (id)=>{ document.getElementById('edit-q-id').value=id; window.toggleModal('modal-edit-quote'); window.toggleModal('modal-quote-details'); };
         document.getElementById('edit-quote-form').addEventListener('submit', async(e)=>{ e.preventDefault(); await updateDoc(doc(db,'quotes',document.getElementById('edit-q-id').value), {prescription:{od:`OD: ${document.getElementById('edit-q-od-sph').value}/${document.getElementById('edit-q-od-cyl').value}x${document.getElementById('edit-q-od-ax').value}`, oi:`OI: ${document.getElementById('edit-q-oi-sph').value}/${document.getElementById('edit-q-oi-cyl').value}x${document.getElementById('edit-q-oi-ax').value}`}}); window.toggleModal('modal-edit-quote'); alert("Actualizado"); });
 
-        window.router = (v) => { 
-            document.querySelectorAll('.view-section').forEach(e=>e.classList.add('hidden')); 
-            document.getElementById('view-'+v).classList.remove('hidden'); 
-            document.querySelectorAll('.nav-item').forEach(b=>{b.classList.remove('bg-slate-800','text-white'); b.classList.add('text-slate-400');});
-            if(v==='quotes') document.getElementById('nav-quotes').classList.add('bg-amber-800','text-white');
-            else document.getElementById('nav-'+v).classList.add('bg-slate-800','text-white'); 
-        };
+        window.router = (v) => { document.querySelectorAll('.view-section').forEach(e=>e.classList.add('hidden')); document.getElementById('view-'+v).classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(b=>{b.classList.remove('bg-slate-800','text-white'); b.classList.add('text-slate-400');}); if(v=='quotes') document.getElementById('nav-quotes').classList.add('bg-amber-800','text-white'); else document.getElementById('nav-'+v).classList.add('bg-slate-800','text-white'); };
         window.toggleModal = (id) => document.getElementById(id).classList.toggle('hidden');
         
         lucide.createIcons();
