@@ -235,19 +235,34 @@
         const firebaseConfig = { apiKey: "AIzaSyCWCM5aXMS8OgcJ5vEES6WV17Hhymfngyw", authDomain: "coottyvision-hd.firebaseapp.com", projectId: "coottyvision-hd", storageBucket: "coottyvision-hd.firebasestorage.app", messagingSenderId: "204138808996", appId: "1:204138808996:web:ff65a968cd5853d52e0831" };
         const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('admin-app').classList.remove('hidden');
-                document.getElementById('user-email-display').innerText = user.email;
-                document.getElementById('view-dashboard').classList.remove('hidden');
-                document.getElementById('modal-welcome').classList.remove('hidden');
-                loadData();
-            } else {
-                document.getElementById('login-screen').classList.remove('hidden');
-                document.getElementById('admin-app').classList.add('hidden');
-            }
-        });
+// --- CONFIGURACIÓN DE SEGURIDAD ---
+const ALLOWED_ADMINS = ['admin@coottyvision.com', 'marco.montoro@ejemplo.com']; // Agrega aquí los correos que SÍ pueden entrar
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // 1. VERIFICACIÓN DE SEGURIDAD
+        if (!ALLOWED_ADMINS.includes(user.email)) {
+            // Si el correo NO está en la lista, lo expulsamos
+            alert("⛔ ACCESO DENEGADO: Tu correo " + user.email + " no tiene permisos de administrador.");
+            signOut(auth).then(() => {
+                window.location.reload(); // Recargar para mostrar login
+            });
+            return; // Detener ejecución
+        }
+
+        // 2. Si es admin, mostramos el panel
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('admin-app').classList.remove('hidden');
+        document.getElementById('user-email-display').innerText = user.email;
+        document.getElementById('view-dashboard').classList.remove('hidden');
+        document.getElementById('modal-welcome').classList.remove('hidden');
+        loadData();
+    } else {
+        // No hay nadie logueado, mostrar login
+        document.getElementById('login-screen').classList.remove('hidden');
+        document.getElementById('admin-app').classList.add('hidden');
+    }
+});
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -532,4 +547,5 @@ function renderOrders() {
     </script>
 </body>
 </html>
+
 
