@@ -106,7 +106,7 @@
 
                 <div id="view-orders" class="view-section fade-in hidden h-full flex flex-col">
                     <div class="flex justify-between items-center mb-6"><div><h3 class="text-xl font-bold text-slate-800">Pedidos y Ventas</h3><p class="text-sm text-slate-500">Transacciones finalizadas o en proceso.</p></div><button onclick="toggleModal('modal-custom-order')" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg transition-all font-medium"><i data-lucide="plus-circle" class="w-4 h-4"></i> Pedido Manual</button></div>
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col min-h-0"><div class="overflow-auto flex-1 custom-scroll"><table class="w-full text-left border-collapse relative"><thead class="bg-slate-50 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-200 sticky top-0 z-10"><tr><th class="p-5">Pedido</th><th class="p-5">Cliente</th><th class="p-5">Total</th><th class="p-5">Estado</th><th class="p-5 text-right">Acciones</th></tr></thead><tbody id="orders-table-body" class="text-sm text-slate-700 divide-y divide-slate-100"></tbody></table></div></div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col min-h-0"><div class="overflow-auto flex-1 custom-scroll"><table class="w-full text-left border-collapse relative"><thead class="bg-slate-50 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-200 sticky top-0 z-10"><tr><th class="p-5">Pedido</th><th class="p-5">Cliente</th><th class="p-5">Pago</th> <th class="p-5">Total</th><th class="p-5">Estado</th><th class="p-5 text-right">Acciones</th></tr></thead><tbody id="orders-table-body" class="text-sm text-slate-700 divide-y divide-slate-100"></tbody></table></div></div>
                 </div>
 
                 <div id="view-quotes" class="view-section fade-in hidden h-full flex flex-col">
@@ -319,15 +319,32 @@
         document.getElementById('custom-order-form').addEventListener('submit', async (e) => { e.preventDefault(); try { const orderId = '#' + Math.random().toString(36).substr(2, 6).toUpperCase(); await addDoc(collection(db, 'orders'), { orderId, items: [{ name: `Lente a Medida: ${document.getElementById('c-frame').value}`, category: document.getElementById('c-lens-type').value, price: parseFloat(document.getElementById('c-total').value), imageUrl: 'https://cdn-icons-png.flaticon.com/512/3004/3004458.png', prescription: { od: { sph: document.getElementById('od-sph').value, cyl: document.getElementById('od-cyl').value, ax: document.getElementById('od-ax').value }, oi: { sph: document.getElementById('oi-sph').value, cyl: document.getElementById('oi-cyl').value, ax: document.getElementById('oi-ax').value } }, isCustom: true }], total: parseFloat(document.getElementById('c-total').value), status: 'pending', date: new Date().toISOString(), customer: document.getElementById('c-name').value, isManual: true }); e.target.reset(); window.toggleModal('modal-custom-order'); alert("Pedido creado"); } catch (err) { alert("Error"); } });
 
         // RENDERERS
-        function renderOrders() {
+function renderOrders() {
             if(!document.getElementById('orders-table-body')) return;
             
             document.getElementById('orders-table-body').innerHTML = orders.map(o => {
-                // Compatibilidad: Si es pedido antiguo (string) o nuevo (objeto)
+                // Compatibilidad: Cliente objeto o string
                 const clientName = typeof o.customer === 'object' ? o.customer.name : o.customer;
                 const clientCity = typeof o.customer === 'object' ? (o.customer.city || '') : '';
                 
+                // LÓGICA DE PAGO (NUEVO)
+                let payBadge = 'bg-gray-100 text-gray-600 border-gray-200';
+                const method = o.paymentMethod || 'Otro';
+                if(method === 'Yape') payBadge = 'bg-purple-100 text-purple-700 border-purple-200';
+                else if(method === 'Plin') payBadge = 'bg-sky-100 text-sky-700 border-sky-200';
+                else if(method === 'BCP') payBadge = 'bg-orange-100 text-orange-700 border-orange-200';
+
+                // Código de Operación (Clic para copiar)
+                const opCode = o.operationCode 
+                    ? `<div class="mt-1 flex items-center gap-1 cursor-pointer group" onclick="navigator.clipboard.writeText('${o.operationCode}'); alert('Copiado: ${o.operationCode}')" title="Copiar">
+                         <span class="font-mono font-bold text-slate-700 bg-slate-100 px-1 rounded border border-slate-200 group-hover:bg-yellow-100 transition-colors text-[10px]">${o.operationCode}</span>
+                         <i data-lucide="copy" class="w-3 h-3 text-slate-400 group-hover:text-yellow-600"></i>
+                       </div>` 
+                    : `<span class="text-[10px] text-slate-400 italic">Sin código</span>`;
+
+                // Selector de Estado (Incluye el nuevo estado "Por Confirmar")
                 const statusSelect = `<select onchange="window.changeOrderStatus('${o.id}', this.value)" class="bg-white border border-slate-200 text-slate-700 text-xs rounded-lg p-1.5 focus:ring-2 focus:ring-teal-500 outline-none cursor-pointer font-bold shadow-sm">
+                    <option value="paid_pending_review" ${o.status==='paid_pending_review'?'selected':''} class="bg-yellow-100 text-yellow-800">Por Confirmar ⏳</option>
                     <option value="pending" ${o.status==='pending'?'selected':''}>Pendiente</option>
                     <option value="processing" ${o.status==='processing'?'selected':''}>En Taller</option>
                     <option value="shipped" ${o.status==='shipped'?'selected':''}>Enviado</option>
@@ -347,6 +364,14 @@
                         <p class="font-bold text-slate-800 text-sm">${clientName}</p>
                         ${clientCity ? `<p class="text-[10px] font-bold text-teal-600 bg-teal-50 inline-block px-1.5 rounded mt-0.5"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> ${clientCity}</p>` : ''}
                     </td>
+                    
+                    <td class="p-5">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${payBadge} uppercase tracking-wide inline-block mb-1">
+                            ${method}
+                        </span>
+                        ${opCode}
+                    </td>
+
                     <td class="p-5 font-bold text-slate-900">S/${parseFloat(o.total).toFixed(2)}</td>
                     <td class="p-5">${statusSelect}</td>
                     <td class="p-5 text-right">
@@ -360,13 +385,16 @@
                 </tr>`;
             }).join('');
             
-            // Actualizar actividad reciente en Dashboard también
+            // Actualizar Dashboard (Lista corta)
             if(document.getElementById('dashboard-recent-sales')) {
                 document.getElementById('dashboard-recent-sales').innerHTML = orders.slice(0,4).map(o => {
                     const name = typeof o.customer === 'object' ? o.customer.name : o.customer;
+                    // Detectar si necesita confirmación para poner un punto amarillo
+                    const dot = o.status === 'paid_pending_review' ? '<span class="w-2 h-2 bg-yellow-500 rounded-full absolute -top-1 -right-1 animate-pulse"></span>' : '';
+                    
                     return `<div class="flex justify-between items-center p-3 hover:bg-slate-50 rounded-xl border border-transparent hover:border-slate-100 transition-all cursor-pointer" onclick="router('orders')">
                         <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-xs shadow-sm">${name.charAt(0).toUpperCase()}</div>
+                            <div class="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-xs shadow-sm relative">${name.charAt(0).toUpperCase()}${dot}</div>
                             <div><p class="font-bold text-xs text-slate-800">${name}</p><p class="text-[10px] text-slate-400">${o.orderId||'#'+o.id.slice(0,4)}</p></div>
                         </div>
                         <span class="font-bold text-xs text-slate-900">S/${parseFloat(o.total).toFixed(2)}</span>
@@ -376,7 +404,6 @@
             updateStats(); 
             lucide.createIcons();
         }
-
         function renderQuotes() {
             if(document.getElementById('quotes-table-body')) {
                 document.getElementById('quotes-table-body').innerHTML = quotes.map(q => `<tr class="hover:bg-amber-50/20 border-b border-slate-100"><td class="p-5 font-medium text-slate-800">${q.name} <span class="text-xs text-slate-400 block">${q.phone || ''}</span></td><td class="p-5 text-sm text-slate-500">${q.type}</td><td class="p-5 text-xs text-slate-400">${new Date(q.date).toLocaleDateString()}</td><td class="p-5 text-right"><div class="flex justify-end gap-2"><button onclick="window.deleteQuote('${q.id}')" class="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button><button onclick="window.viewQuote('${q.id}')" class="text-amber-600 hover:underline text-xs font-bold flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-100 hover:bg-amber-100 transition-colors"><i data-lucide="eye" class="w-3 h-3"></i> Ver</button></div></td></tr>`).join('');
@@ -505,3 +532,4 @@
     </script>
 </body>
 </html>
+
